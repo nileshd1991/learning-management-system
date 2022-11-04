@@ -1,0 +1,8 @@
+Create HTTP Proxy in AWS API GATEWAYCreate
+Create Route WITH below path
+
+ANY /{proxy+}
+
+Integrate Above Route with below Service URL:
+
+ANY http://ec2-65-1-248-64.ap-south-1.compute.amazonaws.com:9090/{proxy}

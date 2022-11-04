@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
+	<changeSet id="ddl01" author="test">
+		<createTable tableName="user">
+			<column name="user_id" type="integer" autoIncrement="true">
+				<constraints primaryKey="true"
+					primaryKeyName="user_id_pk" nullable="false" />
+			</column>
+			<column name="user_name" type="varchar(250)" />
+			<column name="email" type="varchar(250)" />
+			<column name="password" type="varchar(250)" />
+			<column name="role" type="varchar(250)" />
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

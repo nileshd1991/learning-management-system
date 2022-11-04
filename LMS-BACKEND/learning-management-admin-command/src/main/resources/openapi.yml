@@ -1,0 +1,147 @@
+openapi: 3.0.0
+info:
+  description: Learning Management System
+  version: 1.0.0
+  title: Learning Management
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: course
+    description: Operations about Courses
+paths:
+  /add:
+    post:
+      tags:
+        - course
+      summary: Add new Course
+      operationId: addCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Course"
+        description: Course Object
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  "/update/{course_id}":
+    put:
+      tags:
+        - course
+      summary: Update course
+      operationId: updateCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Course"
+        description: Course Object
+        required: true
+      parameters:
+        - name: course_id
+          in: path
+          description: Unique Course ID
+          required: true
+          schema:
+            type: integer        
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  "/delete/{course_id}":
+    delete:
+      tags:
+        - course
+      summary: Delete course
+      operationId: deleteCourse
+      parameters:
+        - name: course_id
+          in: path
+          description: Unique Course ID
+          required: true
+          schema:
+            type: integer        
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                
+  
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+        status_code:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+    Course:
+      type: object
+      properties:
+        course_id:
+          type: integer
+        course_name:
+          type: string
+          description: Course Name
+        start_time:
+          type: integer
+          format: int64
+        end_time:
+          type: integer
+          format: int64
+        description:
+          type: string
+          description: Description
+        technology:
+          type: string
+          description: Course Technology
+        launch_url:
+          type: string
+          description: Course launch URL

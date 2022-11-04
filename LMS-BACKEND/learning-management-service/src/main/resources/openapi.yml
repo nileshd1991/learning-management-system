@@ -1,0 +1,522 @@
+openapi: 3.0.0
+info:
+  description: Learning Management Application
+  version: 1.0.0
+  title: Learning Management
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+security:
+  - basicAuth: []
+tags:
+  - name: course
+    description: Operations about Courses
+  - name: user
+    description: Operations about Users
+  - name: admin
+    description: Operations about Admin User
+paths:
+  /admin/login:
+    post:
+      tags:
+        - admin
+      summary: Admin Login
+      operationId: adminLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        description: User Object
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: Register new User
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        description: User Object
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: User Login
+      operationId: userLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        description: User Object
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                
+  /user/enroll:
+    post:
+      tags:
+        - enrollment
+      summary: Enroll user for a course
+      operationId: enrollCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnrollDetails"
+        description: Enrollment Details
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                
+  "/user/{user_id}/enrolled-courses":
+    get:
+      tags:
+        - enrollment
+      summary: Get user enrolled courses
+      operationId: getUserEnrolledCourses
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          schema:
+            type: integer  
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                                
+  "/user/{user_id}/delete/{course_id}":
+    delete:
+      tags:
+        - enrollment
+      summary: Remove course from enrollment
+      operationId: removeCourseEnrollMent
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          schema:
+            type: integer  
+        - name: course_id
+          in: path
+          description: Course Id
+          required: true
+          schema:
+            type: integer              
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                                                
+  /course/add:
+    post:
+      tags:
+        - course
+      summary: Add new Course
+      operationId: addCourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Course"
+        description: Course Object
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  # "/course/update/{course_id}":
+  #   put:
+  #     tags:
+  #       - course
+  #     summary: Update course
+  #     operationId: updateCourse
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: "#/components/schemas/Course"
+  #       description: Course Object
+  #       required: true
+  #     parameters:
+  #       - name: course_id
+  #         in: path
+  #         description: Unique Course ID
+  #         required: true
+  #         schema:
+  #           type: integer        
+  #     responses:
+  #       "200":
+  #         description: Success
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/Course"
+  #       "400":
+  #         description: Bad Request
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/ApiError"
+  #       "401":
+  #         description: Unauthorized
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: "#/components/schemas/ApiError"
+  "/course/delete/{course_id}":
+    delete:
+      tags:
+        - course
+      summary: Delete course
+      operationId: deleteCourse
+      parameters:
+        - name: course_id
+          in: path
+          description: Unique Course ID
+          required: true
+          schema:
+            type: integer        
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  "/course/{course_id}":
+    get:
+      tags:
+        - course
+      summary: Get course by ID
+      operationId: getCoursesById
+      parameters:
+        - name: course_id
+          in: path
+          description: Unique ID of course
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+               $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                
+  "/courses/info/{technology}":
+    get:
+      tags:
+        - course
+      summary: Get courses by Technology
+      operationId: getCoursesByTechnology
+      parameters:
+        - name: technology
+          in: path
+          description: Technology of course
+          required: true
+          schema:
+            type: string        
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                
+  "/courses/getall":
+    get:
+      tags:
+        - course
+      summary: Get all courses
+      operationId: getAllCourses
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                
+  "/courses/get/{technology}/{from}/{to}":
+    get:
+      tags:
+        - course
+      summary: Get courses by given criteria
+      operationId: getCoursesByTechnologyDuration
+      parameters:
+        - name: technology
+          in: path
+          description: Technology of course
+          required: true
+          schema:
+            type: string              
+        - name: from
+          in: path
+          description: Course from date
+          required: true
+          schema:
+            type: integer
+            format: int64                                    
+        - name: to
+          in: path
+          description: Course to date
+          required: true
+          schema:
+            type: integer
+            format: int64                                      
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Course"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"                                
+servers:
+  - url: https://localhost/api/v1.0/lms
+  - url: http://localhost/api/v1.0/lms
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+        user_id:
+          type: integer
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+        status_code:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+    EnrollDetails:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: User Id
+        course_id:
+          type: integer
+          description: Course Id
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_name:
+          type: string
+          description: User name
+        email:
+          type: string
+          description: Email ID          
+        password:
+          type: string
+          description: Password
+        token:
+          type: string
+          description: Token
+    Course:
+      type: object
+      properties:
+        course_id:
+          type: integer
+        course_name:
+          type: string
+          description: Course Name
+        start_time:
+          type: integer
+          format: int64
+        end_time:
+          type: integer
+          format: int64
+        description:
+          type: string
+          description: Description
+        technology:
+          type: string
+          description: Course Technology
+        launch_url:
+          type: string
+          description: Course launch URL

@@ -1,0 +1,30 @@
+Install Kafka On EC2:
+
+wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.rpm
+
+sudo yum install -y jdk-8u141-linux-x64.rpm
+
+wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.3.1.tgz
+
+tar -xzf kafka_2.12-3.3.1.tgz
+
+rm kafka_2.12-0.10.2.0.tgz
+
+vi .bashrc
+
+export KAFKA_HEAP_OPTS="-Xmx500M -Xms500M"
+
+source .bashrc
+
+cd kafka_2.12-0.10.2.0
+nohup bin/zookeeper-server-start.sh config/zookeeper.properties > ~/zookeeper-logs &
+
+If Error Occured after this use below command
+rm -rf /tmp/zookeeper/*
+
+cd kafka_2.12-0.10.2.0
+nohup bin/kafka-server-start.sh config/server.properties > ~/kafka-logs &
+
+
+bin/kafka-topics.sh --create --topic course --bootstrap-server ec2-15-206-166-129.ap-south-1.compute.amazonaws.com:9092
+bin/kafka-topics.sh --create --topic coursedelete --bootstrap-server ec2-15-206-166-129.ap-south-1.compute.amazonaws.com:9092

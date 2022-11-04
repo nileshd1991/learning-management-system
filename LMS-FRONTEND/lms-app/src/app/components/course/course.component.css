@@ -1,0 +1,8 @@
+.right{
+    float: right;
+    margin: 10px;
+  }
+  
+  .success{
+    margin:10px;color:white;border:1px solid rgb(15, 148, 15);border-radius: 5px;background-color: rgb(17, 180, 12);padding: 5px;
+  }

@@ -1,0 +1,115 @@
+<div class="container mt">
+    <br/>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="error" *ngIf="this.errorMessageCandidate!=''">{{this.errorMessageCandidate}}</p>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Candidate Login</div>
+          <div class="panel-body">
+            <form [formGroup]="candidateForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <label>User Name*</label>
+                  <input type="text" class="form-control" formControlName="candidateUserName" autocomplete="off">
+                  <span  class="error-span" *ngIf='candidateForm.controls["candidateUserName"].dirty'>
+                    <span *ngIf='!!candidateForm.controls["candidateUserName"].errors  && !!candidateForm.controls["candidateUserName"].errors["required"]'>Enter a valid User Name</span>
+                  </span>
+                </div>
+                <div class="col-md-12">
+                  <label>Password*</label>
+                  <input type="password" class="form-control" formControlName="candidatePassword">
+                  <span class="error-span" *ngIf='candidateForm.controls["candidatePassword"].dirty'>
+                    <span *ngIf='!!candidateForm.controls["candidatePassword"].errors  && !!candidateForm.controls["candidatePassword"].errors["required"]'>Enter a Password</span>
+                    <!-- <span *ngIf='!!candidateForm.controls["candidatePassword"].errors  && !!candidateForm.controls["candidatePassword"].errors["pattern"]'>Enter a valid Password</span> -->
+                  </span>
+                </div>
+                <div class="col-md-12">
+                    <br/>
+                    <button type="button" [disabled]="!this.candidateForm.valid" style="float: right;" (click)="candidateLogin()" class="btn btn-success float-right">Login</button> 
+                    <br/> <br/> <br/> <br/> <br/>
+                </div>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <p class="error" *ngIf="this.errorMessageRCandidate!=''">{{this.errorMessageRCandidate}}</p>
+        <p class="success" *ngIf="this.successMessageRCandidate!=''">{{this.successMessageRCandidate}}</p>
+        <div class="panel panel-primary">
+          <div class="panel-heading">New Candidate Registration</div>
+          <div class="panel-body">
+            <form [formGroup]="candidateRForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <label>User Name*</label>
+                  <input type="text" class="form-control" formControlName="candidateUserName" autocomplete="off">
+                  <span  class="error-span" *ngIf='candidateRForm.controls["candidateUserName"].dirty'>
+                    <span *ngIf='!!candidateRForm.controls["candidateUserName"].errors  && !!candidateRForm.controls["candidateUserName"].errors["required"]'>Enter a valid User Name</span>
+                  </span>
+                </div>
+                <div class="col-md-12">
+                  <label>Email ID*</label>
+                  <input type="text" class="form-control" formControlName="candidateEmail" autocomplete="off">
+                  <span  class="error-span" *ngIf='candidateRForm.controls["candidateEmail"].dirty'>
+                    <span *ngIf='!!candidateRForm.controls["candidateEmail"].errors  && !!candidateRForm.controls["candidateEmail"].errors["required"]'>Enter a email</span>
+                    <span *ngIf='!!candidateRForm.controls["candidateEmail"].errors  && !!candidateRForm.controls["candidateEmail"].errors["email"]'>Enter a valid Email ID</span>
+                  </span>
+                </div>
+                <div class="col-md-12">
+                  <label>Password*</label>
+                  <input type="password" class="form-control" formControlName="candidatePassword">
+                  <span class="error-span" *ngIf='candidateRForm.controls["candidatePassword"].dirty'>
+                    <span *ngIf='!!candidateRForm.controls["candidatePassword"].errors  && !!candidateRForm.controls["candidatePassword"].errors["required"]'>Enter a Password</span>
+                    <span *ngIf='!!candidateRForm.controls["candidatePassword"].errors  && !!candidateRForm.controls["candidatePassword"].errors["pattern"]'>Enter a valid Password(With min 8 chars,lowercase,uppercase letters,numbers and special characters)</span>
+                  </span>
+                </div>
+                <div class="col-md-12">
+                    <br/>
+                    <button type="button" [disabled]="!this.candidateRForm.valid" style="float: right;" (click)="registerCandidate()" class="btn btn-success float-right">Register</button> 
+                </div>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <hr style="border: 1px solid gray;">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="error" *ngIf="this.errorMessageAdmin!=''">{{this.errorMessageAdmin}}</p>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Administrator Login</div>
+          <div class="panel-body">
+            <form [formGroup]="adminForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <label>User Name*</label>
+                  <input type="text" class="form-control" formControlName="adminUserName" autocomplete="off">
+                  <span  class="error-span" *ngIf='adminForm.controls["adminUserName"].dirty'>
+                    <span *ngIf='!!adminForm.controls["adminUserName"].errors  && !!adminForm.controls["adminUserName"].errors["required"]'>Enter a valid User Name</span>
+                  </span>
+                </div>
+                <div class="col-md-12">
+                  <label>Password*</label>
+                  <input type="password" class="form-control" formControlName="adminPassword">
+                  <span  class="error-span" *ngIf='adminForm.controls["adminPassword"].dirty'>
+                    <span *ngIf='!!adminForm.controls["adminPassword"].errors  && !!adminForm.controls["adminPassword"].errors["required"]'>Enter a Password</span>
+                    <!-- <span *ngIf='!!adminForm.controls["adminPassword"].errors  && !!adminForm.controls["adminPassword"].errors["pattern"]'>Enter a valid Password</span> -->
+                  </span>
+                </div>
+                <div class="col-md-12">
+                    <br/>
+                    <button type="button" [disabled]="!this.adminForm.valid" style="float: right;" (click)="adminLogin()" class="btn btn-success float-right">Login</button> 
+                </div>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  

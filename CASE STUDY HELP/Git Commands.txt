@@ -1,0 +1,33 @@
+Go to your workspace of code
+
+git init
+
+git add .
+
+git commit -m "My First Commit"
+
+Create repository for this code in Github
+
+copy url and use command like below:
+
+git remote add origin git@git03.iiht.tech:nileshrd11/learning-management-system-front-end.git
+
+git remote add origin https://github.com/nileshd1991/flight-management.git
+
+git push origin master(Will trigger for authentication on web)
+
+To push changes after these to remote use like below:
+
+ First: git push --set-upstream origin master
+
+After this for all changes use like below
+
+git status
+
+if files untracked then use:
+
+git add .
+
+git commit -m "changes in java file"
+
+git push

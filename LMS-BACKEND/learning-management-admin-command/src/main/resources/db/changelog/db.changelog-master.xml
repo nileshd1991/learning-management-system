@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.9.xsd">
+	<changeSet id="ddl01" author="test">
+		<createTable tableName="course">
+			<column name="course_id" type="int" autoIncrement="true">
+				<constraints primaryKey="true"
+					primaryKeyName="course_id_pk" nullable="false" />
+			</column>
+			<column name="course_name" type="varchar(250)" />
+			<column name="start_time" type="DATETIME" />
+			<column name="end_time" type="DATETIME" />
+			<column name="description" type="varchar(250)" />
+			<column name="technology" type="varchar(250)" />
+			<column name="launch_url" type="varchar(500)" />
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

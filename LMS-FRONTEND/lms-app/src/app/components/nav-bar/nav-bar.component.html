@@ -1,0 +1,7 @@
+<mat-toolbar color="accent">
+    <span><a style="font-size: large;font-style: italic;" routerLink="/" class="loginbtncolor" mat-icon-button>Learning Management System</a></span>
+    <span style="text-align: center;margin-left: 60px;">Welcome {{loggedInUsername}}</span>
+    <span class="example-spacer"></span>
+    <button type="button" class="btn btn-success" *ngIf="loggedIn" mat-icon-button (click)="logoutUser()">Logout</button>
+</mat-toolbar>
+  

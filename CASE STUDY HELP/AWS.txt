@@ -1,0 +1,21 @@
+
+User Name
+
+AWS User ID
+
+Password
+
+URL
+
+Public Cloud
+
+Nilesh.Deshmukh
+
+nilesh.deshmukh20@mml.local
+
+xvzMBXWH
+
+https://iihtedu.cloud.builder.ai/
+
+aws
+mongodb://lmsdocdb:admin123@lms-doc-db.c8rsx8ay7cs2.ap-south-1.docdb.amazonaws.com:27017/?connectTimeoutMS=10000&readPreference=primary&authMechanism=SCRAM-SHA-1&serverSelectionTimeoutMS=5000&appname=MongoDB%20Compass&ssl=false

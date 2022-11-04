@@ -1,0 +1,59 @@
+/user/user/register
+
+{
+  "user_name": "abcd",
+  "email": "abcd@gmail.com",
+  "password": "123123"
+}
+
+{
+  "user_name": "pqrs",
+  "email": "pqrs@gmail.com",
+  "password": "123123"
+}
+
+/user/user/login
+
+{
+  "user_name": "admin",
+  "password": "Nilesh@123"
+}
+
+/admin/admin/login
+
+{
+  "user_name": "admin",
+  "password": "123123"
+}
+
+/course/course/add
+
+{
+  "course_name": "Programming",
+  "start_time": 1666745286000,
+  "end_time": 1666745286000,
+  "description": "Programming Course",
+  "technology": "Java",
+  "launch_url": "www.testurl.com"
+}
+
+{
+  "course_name": "Java Frameworks",
+  "start_time": 1667263686000,
+  "end_time": 1667263686000,
+  "description": "Java Frameworks",
+  "technology": "Spring Framework",
+  "launch_url": "www.testurl1.com"
+}
+
+{
+  "course_name": "Web Design",
+  "start_time": 1667263686000,
+  "end_time": 1668041286000,
+  "description": "Web Designing Course",
+  "technology": "HTML",
+  "launch_url": "www.testurl2.com"
+}
+
+
+

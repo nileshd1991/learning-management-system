@@ -1,0 +1,17 @@
+.right{
+    float: right;
+    margin: 10px;
+  }
+  
+  .error{
+    margin:10px;color:white;border:1px solid black;border-radius: 5px;background-color: rgb(77, 49, 7);padding: 5px;
+  }
+  
+  .success{
+    margin:10px;color:white;border:1px solid rgb(24, 199, 8);border-radius: 5px;background-color: rgb(12, 180, 26);padding: 5px;
+  }
+
+  .error-span{
+    color:red
+  }
+  

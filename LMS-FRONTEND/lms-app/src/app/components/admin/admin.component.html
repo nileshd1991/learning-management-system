@@ -1,0 +1,116 @@
+<div class="container mt">
+    <br/>
+    <div class="row">
+      <div class="col-md-12">
+        <p class="error" *ngIf="this.errorMessageAddCourse!=''">{{this.errorMessageAddCourse}}</p>
+        <p class="success" *ngIf="this.successMessageAddCourse!=''">{{this.successMessageAddCourse}}</p>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Add new Course</div>
+          <div class="panel-body">
+            <form [formGroup]="courseForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Course Name*</label>
+                  <input type="text" class="form-control" formControlName="courseName">
+                  <span  class="error-span" *ngIf='courseForm.controls["courseName"].dirty'>
+                    <span *ngIf='!!courseForm.controls["courseName"].errors  && !!courseForm.controls["courseName"].errors["required"]'>Enter a course name</span>
+                    <span *ngIf='!!courseForm.controls["courseName"].errors  && !!courseForm.controls["courseName"].errors["minlength"]'>Enter minimum 20 characters course name</span>
+                  </span>
+                </div>
+                <div class="col-md-6">
+                    <label>Technology*</label>
+                    <input type="text" class="form-control" formControlName="technology">
+                    <span  class="error-span" *ngIf='courseForm.controls["technology"].dirty'>
+                      <span *ngIf='!!courseForm.controls["technology"].errors  && !!courseForm.controls["technology"].errors["required"]'>Enter technology</span>
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Course Start Date*</label>
+                    <div class="input-group">
+                      <input class="form-control" placeholder="YYYY-MM-DD"
+                             ngbDatepicker #d="ngbDatepicker"
+                             formControlName="startTime" id="startTime">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" (click)="d.toggle()"><span class="glyphicon glyphicon-calendar"></span></button>
+                      </span>
+                    </div>
+                    <!-- <input class="form-control" formControlName="startTime" id="startTime" placeholder="YYYY-MM-DD"> -->
+                    <span  class="error-span" *ngIf='courseForm.controls["startTime"].dirty'>
+                      <span *ngIf='!!courseForm.controls["startTime"].errors  && !!courseForm.controls["startTime"].errors["required"]'>Enter a start date</span>
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Course End Date*</label>
+                    <div class="input-group">
+                      <input class="form-control" placeholder="YYYY-MM-DD"
+                             ngbDatepicker #d1="ngbDatepicker"
+                             formControlName="endTime" id="endTime">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" (click)="d1.toggle()"><span class="glyphicon glyphicon-calendar"></span></button>
+                      </span>
+                    </div>
+                    <span  class="error-span" *ngIf='courseForm.controls["endTime"].dirty'>
+                      <span *ngIf='!!courseForm.controls["endTime"].errors  && !!courseForm.controls["endTime"].errors["required"]'>Enter a end date</span>
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Description*</label>
+                    <input type="text" class="form-control" formControlName="description">
+                    <span  class="error-span" *ngIf='courseForm.controls["description"].dirty'>
+                      <span *ngIf='!!courseForm.controls["description"].errors  && !!courseForm.controls["description"].errors["required"]'>Enter description</span>
+                      <span *ngIf='!!courseForm.controls["description"].errors  && !!courseForm.controls["description"].errors["minlength"]'>Enter minimum 100 characters description</span>
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Launch URL*</label>
+                    <input type="text" class="form-control" formControlName="launchUrl">
+                    <span  class="error-span" *ngIf='courseForm.controls["launchUrl"].dirty'>
+                      <span *ngIf='!!courseForm.controls["launchUrl"].errors  && !!courseForm.controls["launchUrl"].errors["required"]'>Enter URL</span>
+                    </span>
+                  </div>
+                <div class="col-md-12">
+                    <br/>
+                    <button type="button" [disabled]="!this.courseForm.valid" style="float: right;" (click)="addCourse()" class="btn btn-success float-right">Add new course</button> 
+                </div>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading">List of Courses</div>
+          <div class="panel-body">
+            <p class="success" *ngIf="this.successMessageDeleteCourse!=''">{{this.successMessageDeleteCourse}}</p>
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Course Name</th>
+                  <th>Technology</th>
+                  <th>Description</th>
+                  <th>URL</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Delete Course</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let course of courses,let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{course.course_name}}</td>
+                  <td>{{course.technology}}</td>
+                  <td>{{course.description}}</td>
+                  <td>{{course.launch_url}}</td>
+                  <td>{{course.start_time|date:'mediumDate'}}</td>
+                  <td>{{course.end_time|date:'mediumDate'}}</td>
+                  <td><button (click)="deleteCourse(course.course_id)" class="btn btn-danger btn-sm" type="button">Delete Course</button></td>
+                </tr>
+              </tbody>
+            </table> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  

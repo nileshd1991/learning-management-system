@@ -1,0 +1,65 @@
+version: "1"
+services:
+  eureka:
+    image: nileshd1991/eureka:1.1
+    ports:
+      - "8762:8762"    
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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
+    networks:
+      - lms-network
+
+  gateway:
+    image: nileshd1991/gateway:1.1
+    ports:
+      - "9090:9090" 
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - eureka           
+    networks:
+      - lms-network    
+ 
+  command:
+    image: nileshd1991/command:1.1
+    ports:
+      - "8086:8086"
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - eureka
+      - gateway      
+    networks:
+      - lms-network
+      
+  service:
+    image: nileshd1991/service:1.1
+    ports:
+      - "8085:8085"
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - eureka
+      - gateway   
+      - command   
+    networks:
+      - lms-network
+      
+  kafka:
+    image: nileshd1991/kafka:1.1
+    ports:
+      - "8081:8081"
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - command
+    networks:
+      - lms-network        
+
+networks:
+  lms-network:

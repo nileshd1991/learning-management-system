@@ -1,0 +1,41 @@
+<div class="container mt">
+    <div class="row">
+      <div class="col-md-12">
+          <br/>
+        <!-- <button type="button" *ngIf="!ticket.cancelled" class="btn btn-danger right mt" (click)="cancelTicket()">Cancel this ticket</button> -->
+        <button type="button" class="btn btn-primary right mt" routerLink="../../">Back</button>
+        <button type="button" style="float: right;" (click)="enrollForCourse()" class="btn btn-primary right mt">Enroll for this course</button>
+        <br/> <br/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading ticket">Course Name : {{course.course_name}}
+            <span *ngIf="courseAddSuccessMessage!=''" class="success" >{{courseAddSuccessMessage}}</span>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="ticket">Technology:</span> {{course.technology}}
+                  </li>
+                </ul>
+                <ul class="list-group">
+                  <li class="list-group-item">Description: {{course.description}}</li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item">Launch URL: <a href="{{course.launch_url}}">Visit course</a></li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item">Course Start Date: {{course.start_time|date:'mediumDate'}} &nbsp;&nbsp;| &nbsp;&nbsp; Course End Date: {{course.end_time|date:'mediumDate'}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

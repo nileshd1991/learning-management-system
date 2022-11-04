@@ -1,0 +1,43 @@
+
+On EC2:
+sudo yum update -y
+sudo yum install docker
+
+sudo service docker start
+docker -v
+sudo setfacl --modify user:ec2-user:rw /var/run/docker.sock
+
+Docker remove images: docker image rm nileshd1991/eureka:1.0
+Docker remove stopped containers: docker rm $(docker ps --filter status=exited -q)
+
+docker build -t nileshd1991/eureka:1.1 .
+docker build -t nileshd1991/gateway:1.1 .
+docker build -t nileshd1991/kafka:1.1 .
+docker build -t nileshd1991/command:1.1 .
+docker build -t nileshd1991/service:1.1 .
+
+To rename image:  docker tag gateway:1.0 nileshd1991/eureka:1.1
+
+
+
+docker pull nileshd1991/eureka:1.1
+docker pull nileshd1991/gateway:1.1
+
+docker run -e AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO -e AWS_SECRET_ACCESS_KEY=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 -p 8762:8762 nileshd1991/eureka:1.1
+docker run -e AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO -e AWS_SECRET_ACCESS_KEY=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 -p 9090:9090 nileshd1991/gateway:1.1
+
+docker pull nileshd1991/command:1.1
+docker pull nileshd1991/service:1.1
+
+docker run -e AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO -e AWS_SECRET_ACCESS_KEY=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 -p 8086:8086 nileshd1991/command:1.1
+docker run -e AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO -e AWS_SECRET_ACCESS_KEY=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 -p 8085:8085 nileshd1991/service:1.1
+
+docker pull nileshd1991/kafka:1.1
+docker run -e AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO -e AWS_SECRET_ACCESS_KEY=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 -p 8081:8081 nileshd1991/kafka:1.1
+
+If image pull error occured
+sudo setfacl --modify user:ec2-user:rw /var/run/docker.sock
+
+
+
+

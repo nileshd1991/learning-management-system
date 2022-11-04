@@ -1,0 +1,159 @@
+<div class="container mt">
+  <br />
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Find Courses
+          <span class="label label-warning" *ngIf="(this.enrollment|json)!='[]'" style="float: right;font-size: 14px;">Total Enrolled Courses= {{enrollment.length}}</span>
+        </div>
+
+        
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <br />
+              <button type="button" (click)="getAllCourses()" class="btn btn-success float-right">List All Available
+                Courses</button>
+              <!-- <button *ngIf="(this.cart|json)!='[]'" type="button" style="float: right;" (click)="clearCart()" class="btn btn-info float-right">View Cart</button>  -->
+              <br/>
+              <p class="error" *ngIf="this.errorMessage2!=''">{{this.errorMessage2}}</p>
+              <hr style="border: 1px solid rgb(49, 18, 18);" />
+            </div>
+          </div>
+          <div class="row">
+            <form [formGroup]="courseForm1">
+              <div class="col-md-6">
+                <label>Technology*</label>
+                <input type="text" class="form-control" formControlName="technology">
+                
+                <span class="error-span" *ngIf='courseForm1.controls["technology"].dirty'>
+                  <span
+                    *ngIf='!!courseForm1.controls["technology"].errors  && !!courseForm1.controls["technology"].errors["required"]'>Enter
+                    technology</span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <br/>
+                <button type="button" [disabled]="!this.courseForm1.valid" (click)="getCoursesByTechnology()" class="btn btn-success float-right">Find Courses</button>
+                <br/>
+                <p class="error" *ngIf="this.errorMessage!=''">{{this.errorMessage}}</p>
+              </div>
+              <div class="col-md-12">
+                <hr style="border: 1px solid rgb(49, 18, 18);" />
+              </div>
+            </form>
+            
+          </div>
+          <div class="row">
+            <form [formGroup]="courseForm2">
+              <div class="col-md-6">
+                <label>Technology*</label>
+                <input type="text" class="form-control" formControlName="technology">
+                
+                <span class="error-span" *ngIf='courseForm2.controls["technology"].dirty'>
+                  <span
+                    *ngIf='!!courseForm2.controls["technology"].errors  && !!courseForm2.controls["technology"].errors["required"]'>Enter
+                    technology</span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <label>Course Start Date*</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="YYYY-MM-DD"
+                         ngbDatepicker #d="ngbDatepicker"
+                         formControlName="startTime" id="startTime">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="d.toggle()"><span class="glyphicon glyphicon-calendar"></span></button>
+                  </span>
+                </div>
+                <!-- <input class="form-control" formControlName="startTime" id="startTime" placeholder="YYYY-MM-DD"> -->
+                <span  class="error-span" *ngIf='courseForm2.controls["startTime"].dirty'>
+                  <span *ngIf='!!courseForm2.controls["startTime"].errors  && !!courseForm2.controls["startTime"].errors["required"]'>Enter a start date</span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <label>Course End Date*</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="YYYY-MM-DD"
+                         ngbDatepicker #d1="ngbDatepicker"
+                         formControlName="endTime" id="endTime">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="d1.toggle()"><span class="glyphicon glyphicon-calendar"></span></button>
+                  </span>
+                </div>
+                <span  class="error-span" *ngIf='courseForm2.controls["endTime"].dirty'>
+                  <span *ngIf='!!courseForm2.controls["endTime"].errors  && !!courseForm2.controls["endTime"].errors["required"]'>Enter a end date</span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <br/>
+                <button type="button" [disabled]="!this.courseForm2.valid" (click)="getCoursesByTechnologyAndDuration()" class="btn btn-success float-right">Find Courses</button>
+                <br/>
+                <p class="error" *ngIf="this.errorMessage1!=''">{{this.errorMessage1}}</p>
+              </div>
+            </form>
+          </div>
+
+        </div>
+        <br>
+      </div>
+    </div>
+    <div *ngIf="this.courses.length!=0" class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">List of Courses
+        </div>
+        <div class="panel-body">   
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Sr. No</th>
+                <th>Course Name</th>
+                <th>Technology</th>
+                <th>View Details</th>
+                <th>Add to Cart</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of courses,let i=index">
+                <td>{{i+1}}</td>
+                <td>{{course.course_name}}</td>
+                <td>{{course.technology}}</td>
+                <td><button routerLink="course/{{course.course_id}}" class="btn btn-sm btn-info">Details</button></td>
+                <td><button (click)="enrollForCourse(course.course_id)" class="btn btn-sm btn-warning">Enroll for course</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+    <div *ngIf="this.enrollment.length!=0" class="col-md-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">Candidate enrolled courses
+        </div>
+        <div class="panel-body">   
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Sr. No</th>
+                <th>Course Name</th>
+                <th>Technology</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of this.enrollment,let i=index">
+                <td>{{i+1}}</td>
+                <td>{{course.course_name}}</td>
+                <td>{{course.technology}}</td>
+                <td><button class="btn btn-sm btn-danger" (click)="removeEnrollment(course.course_id)">Remove this course</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

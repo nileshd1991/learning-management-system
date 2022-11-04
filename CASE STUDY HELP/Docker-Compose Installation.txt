@@ -1,0 +1,110 @@
+Docker CE Install
+sudo amazon-linux-extras install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+Make docker auto-start
+
+sudo chkconfig docker on
+
+Because you always need it....
+
+sudo yum install -y git
+
+Reboot to verify it all loads fine on its own.
+
+sudo reboot
+
+docker-compose install
+Copy the appropriate docker-compose binary from GitHub:
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+NOTE: to get the latest version (thanks @spodnet): sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+Fix permissions after download:
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+Verify success:
+
+docker-compose version
+
+CREATE DOCKER-COMPOSE.yml
+
+touch docker-compose.yml
+vi docker-compose.yml
+
+ADD FOLLOWING INSTRUCTIONS TO docker-compose.yml FILE:
+
+version: "1"
+services:
+  eureka:
+    image: nileshd1991/eureka:1.1
+    ports:
+      - "8762:8762"    
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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
+    networks:
+      - lms-network
+
+  gateway:
+    image: nileshd1991/gateway:1.1
+    ports:
+      - "9090:9090" 
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - eureka           
+    networks:
+      - lms-network    
+ 
+  command:
+    image: nileshd1991/command:1.1
+    ports:
+      - "8086:8086"
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - eureka
+      - gateway      
+    networks:
+      - lms-network
+      
+  service:
+    image: nileshd1991/service:1.1
+    ports:
+      - "8085:8085"
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - eureka
+      - gateway   
+      - command   
+    networks:
+      - lms-network
+      
+  kafka:
+    image: nileshd1991/kafka:1.1
+    ports:
+      - "8081:8081"
+    environment:
+      - AWS_ACCESS_KEY_ID=AKIA3SH5DTXT4WDUGTGO
+      - AWS_SECRET_ACCESS_KEY=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      
+    depends_on:
+      - command
+    networks:
+      - lms-network        
+
+networks:
+  lms-network:
+  
+  
+docker-compose up OR docker-compose up --detach (To exclude logs)
+
+docker stop
+
+docker start and then docker up

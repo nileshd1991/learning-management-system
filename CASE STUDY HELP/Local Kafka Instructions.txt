@@ -1,0 +1,11 @@
+bin/windows/kafka-topics.bat --create --topic coursedelete --bootstrap-server localhost:9092
+
+bin/windows/zookeeper-server-start.bat ./config/zookeeper.properties
+
+bin/windows/kafka-server-start.bat ./config/server.properties
+
+
+
+docker build -t eureka:1.0
+
+docker run -p 8085:8085 eureka:1.0

@@ -1,0 +1,15 @@
+Deploy Angular APP to EC2
+
+sudo yum install httpd -y
+
+service httpd status
+
+sudo service httpd start
+
+Open WINSCP and move files to root/var/www/html
+
+Give write permission to htnl folder using below command:
+
+sudo chown -R -v ec2-user /var/app/current/
+
+Upload files
